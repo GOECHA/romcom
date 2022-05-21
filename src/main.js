@@ -26,16 +26,6 @@ homeBtn.addEventListener('click', goHome)
 // Create your event handlers and other functions here 👇
 
 
-function goHome() {
-  homePage.classList.remove("hidden")
-  makeOwnPage.classList.add("hidden")
-  viewSavedPage.classList.add("hidden")
-  homeBtn.classList.add("hidden")
-  randomBtn.classList.remove("hidden")
-  saveBtn.classList.remove("hidden")
-}
-
-
 
 randomize();
 function randomize() {
@@ -49,23 +39,52 @@ function randomize() {
     return new Cover(covers[newCover], titles[newTitle], descriptors[newTag1], descriptors[newTag2])
 }
 
+function goHome() {
+
+  var toHide = [makeOwnPage, viewSavedPage, homeBtn]
+
+  for(var i = 0;i < toHide.length;i++){
+    reveal(toHide[i])
+  }
+
+  var toShow = [randomBtn, saveBtn, homePage]
+
+  for(var i = 0;i < toShow.length;i++){
+    reveal(toShow[i])
+  }
+
+}
+
+function reveal(htmlElement){
+  htmlElement.classList.remove("hidden")
+}
+
+function conceal(htmlElement){
+  htmlElement.classList.add("hidden")
+}
+
+
 function showMakeOwnPage() {
-  makeOwnPage.classList.remove("hidden")
+
   homePage.classList.add("hidden")
   randomBtn.classList.add("hidden")
   saveBtn.classList.add("hidden")
+
   homeBtn.classList.remove("hidden")
+  makeOwnPage.classList.remove("hidden")
+
 }
 
 function viewSaved() {
-  viewSavedPage.classList.remove("hidden")
+
   homePage.classList.add("hidden")
   randomBtn.classList.add("hidden")
   saveBtn.classList.add("hidden")
+
   homeBtn.classList.remove("hidden")
+  viewSavedPage.classList.remove("hidden")
+
 }
-
-
 
 
 
