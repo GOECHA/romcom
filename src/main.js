@@ -12,11 +12,31 @@ var homePage = document.querySelector('.home-view')
 var saveBtn = document.querySelector('.save-cover-button')
 var homeBtn = document.querySelector('.home-button')
 
+
+// *********************** Page Settings *******************************
+
+var homePageSettings = {
+  hidden: [makeOwnPage, viewSavedPage, homeBtn],
+  visible: [homePage, randomBtn, saveBtn]
+}
+
+var makeOwnPageSettings = {
+  hidden: [homePage, randomBtn, saveBtn],
+  visible: [homeBtn, makeOwnPage]
+}
+
+var viewSavedPageSettings = {
+  hidden: [homePage, randomBtn, saveBtn],
+  visible: [homeBtn, viewSavedPage]
+}
+
+// *********************** end *******************************
+
 // We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
-var currentCover;
+
 
 // Add your event listeners here 👇
 randomBtn.addEventListener('click', randomize)
@@ -24,8 +44,6 @@ makeOwnBtn.addEventListener('click', showMakeOwnPage)
 viewSaveBtn.addEventListener('click', viewSaved)
 homeBtn.addEventListener('click', goHome)
 // Create your event handlers and other functions here 👇
-
-
 
 randomize();
 function randomize() {
@@ -40,20 +58,18 @@ function randomize() {
 }
 
 function goHome() {
-
-  var toHide = [makeOwnPage, viewSavedPage, homeBtn]
-
-  for(var i = 0;i < toHide.length;i++){
-    reveal(toHide[i])
-  }
-
-  var toShow = [randomBtn, saveBtn, homePage]
-
-  for(var i = 0;i < toShow.length;i++){
-    reveal(toShow[i])
-  }
-
+  switchPage(homePageSettings)
 }
+
+function showMakeOwnPage() {
+  switchPage(makeOwnPageSettings)
+}
+
+function viewSaved() {
+  switchPage(viewSavedPageSettings)
+}
+
+// *********************** Utility Functions *******************************
 
 function reveal(htmlElement){
   htmlElement.classList.remove("hidden")
@@ -63,29 +79,37 @@ function conceal(htmlElement){
   htmlElement.classList.add("hidden")
 }
 
+// "switchPage" hides the elements that should be hidden for a given page,
+// and reveals the items that should be revealed for that page
+// the resulting experience for the user is as if they had navigated to that page
+function switchPage(page){
+  var longestLength;
+  // make sure we run the loop at least enough times to visit every element in the longer of the two arrays (which will also be enough for the shorter of the two)
+  page.hidden.length > page.visible.length ? (longestLength = page.hidden.length) : (longestLength = page.visible.length)
 
-function showMakeOwnPage() {
-
-  homePage.classList.add("hidden")
-  randomBtn.classList.add("hidden")
-  saveBtn.classList.add("hidden")
-
-  homeBtn.classList.remove("hidden")
-  makeOwnPage.classList.remove("hidden")
-
+  // if there's an element in either array at any index between 0 and the longest index between the two,
+  // if it's in the hidden array, hide it. if it's in the visible array, show it.
+  for(var i = 0;i < longestLength;i++){
+    page.hidden[i] ? conceal(page.hidden[i]) : console.log('No item at hidden[i]')
+    page.visible[i] ? reveal(page.visible[i]) : console.log('condition 2')
+  }
 }
 
-function viewSaved() {
+// the functionality of revealList and concealList were combined into switchPage
 
-  homePage.classList.add("hidden")
-  randomBtn.classList.add("hidden")
-  saveBtn.classList.add("hidden")
+// function revealList(htmlElements){
+//   for(var i = 0;i < htmlElements.length;i++){
+//     reveal(htmlElements[i])
+//   }
+// }
+//
+// function concealList(htmlElements){
+//   for(var i = 0;i < htmlElements.length;i++){
+//     conceal(htmlElements[i])
+//   }
+// }
 
-  homeBtn.classList.remove("hidden")
-  viewSavedPage.classList.remove("hidden")
-
-}
-
+// *********************** end *******************************
 
 
 // We've provided one function to get you started
