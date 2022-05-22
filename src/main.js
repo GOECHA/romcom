@@ -47,6 +47,7 @@ function randomize() {
     var newTitle = getRandomIndex(titles)
     var newTag1 = getRandomIndex(descriptors)
     var newTag2 = getRandomIndex(descriptors)
+    priceTag.classList.add("hidden")
     coverPic.src = covers[newCover]
     coverTitle.innerText = titles[newTitle]
     coverTagLine.innerText = `A tale of ${descriptors[newTag1]} and ${descriptors[newTag2]}`
