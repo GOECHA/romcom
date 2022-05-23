@@ -19,6 +19,7 @@ var saveCoverBtn = document.querySelector('.save-cover-button')
 var navSavedCovers = document.querySelector('.saved-covers-section')
 var mainCover = document.querySelector('.main-cover')
 var overlay = document.querySelector('.overlay')
+var overImage = document.createElement('img')
 
 // We've provided a few variables below
 var savedCovers = [
@@ -44,7 +45,8 @@ saveCoverBtn.addEventListener('click', addToSaved)
 // mainCover.remove('<img class="overlay" src="./assets/overlay.png">')
 
 randomize();
-mainCover.append('`')  //Why does this show the overlay?
+
+mainCover.append(overImage)
 
 function randomize() {
     var newCover = getRandomIndex(covers)
