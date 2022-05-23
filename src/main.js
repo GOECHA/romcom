@@ -3,6 +3,7 @@ var coverPic = document.querySelector('.cover-image')
 var coverTitle = document.querySelector('.cover-title')
 var coverTagLine = document.querySelector('.tagline')
 var priceTag = document.querySelector('.price-tag')
+var overlayImg = document.querySelector('./assets/overlay.png')
 var randomBtn = document.querySelector('.random-cover-button')
 var makeOwnBtn = document.querySelector('.make-new-button')
 var makeOwnPage = document.querySelector('.form-view')
@@ -23,7 +24,7 @@ var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 var currentCover;
-
+priceTag.classList.add("hidden")
 
 // Add your event listeners here 👇
 randomBtn.addEventListener('click', randomize)
@@ -42,11 +43,13 @@ saveCoverBtn.addEventListener('click', addToSaved)
 
 
 randomize();
+
 function randomize() {
     var newCover = getRandomIndex(covers)
     var newTitle = getRandomIndex(titles)
     var newTag1 = getRandomIndex(descriptors)
     var newTag2 = getRandomIndex(descriptors)
+    priceTag.classList.add("hidden")
     coverPic.src = covers[newCover]
     coverTitle.innerText = titles[newTitle]
     coverTagLine.innerText = `A tale of ${descriptors[newTag1]} and ${descriptors[newTag2]}`
@@ -96,10 +99,10 @@ function viewSaved() {
     // later, we can use that id to find out
 
     savedUserImg  = savedUserImg  + `<section class="mini-cover" data-id="${savedCovers[i].id}">
+    <img class="overlay" src="./assets/overlay.png">
     <img class="cover-image" src=${savedCovers[i].cover}>
      <h2 class="cover-title">${savedCovers[i].title}</h2>
      <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
-     <img class="overlay" src="./assets/overlay.png">
      </section>`
   }
 
@@ -116,8 +119,6 @@ function viewSaved() {
     allSavedCovers[i].addEventListener('dblclick', minicoverHandler);
   }
 }
-
-
 
 
 
