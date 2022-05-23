@@ -17,6 +17,9 @@ var tagInput1 = document.querySelector('#descriptor1')
 var tagInput2 = document.querySelector('#descriptor2')
 var saveCoverBtn = document.querySelector('.save-cover-button')
 var navSavedCovers = document.querySelector('.saved-covers-section')
+var mainCover = document.querySelector('.main-cover')
+var overlay = document.querySelector('.overlay')
+var overImage = document.createElement('img')
 
 // We've provided a few variables below
 var savedCovers = [
@@ -39,9 +42,12 @@ saveCoverBtn.addEventListener('click', addToSaved)
 
 
 // Should make a way to save random covers.
-
+// mainCover.remove('<img class="overlay" src="./assets/overlay.png">')
 
 randomize();
+
+mainCover.append(overImage)
+
 function randomize() {
     var newCover = getRandomIndex(covers)
     var newTitle = getRandomIndex(titles)
@@ -127,6 +133,7 @@ function goHome() {
   saveCoverBtn.classList.remove("hidden")
   viewSaveBtn.classList.remove("hidden")
 }
+
 
 function makeBook(){
   event.preventDefault()
